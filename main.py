@@ -7,7 +7,7 @@ import os
 from helicopter import Helicopter as Helico
 
 
-TICK_SLEEP = 0.05
+TICK_SLEEP = 1
 TREE_UPDATE = 50
 FIRE_UPDATE = 100
 MAP_W, MAP_H = 20, 10
@@ -21,27 +21,24 @@ field.generate_rivers(10)
 helico = Helico(MAP_W, MAP_H)
 
 
+MOVES = {'w': (-1, 0), 'd': (0, 1), 's': (1, 0), 'a': (0, -1)}
 
-def on_press(key):
-    try:
-        print('alphanumeric key {0} pressed'.format(
-            key.char))
-    except AttributeError:
-        print('special key {0} pressed'.format(
-            key))
-
-def on_release(key):
-    print('{0} released'.format(
-        key))
-    if key == keyboard.Key.esc:
-        # Stop listener
-        return False
+def process_key(key):
+    c = key.char.lower()
+    if c in MOVES.keys():
+        print('okey')
+    if key.char == "a" or key.char == "A":
+        print("Cool")
+    # if key == keyboard.Key.esc:
+    #     # Stop listener
+    #     return False
     
-# ...or, in a non-blocking fashion:
 listener = keyboard.Listener(
-    on_press=on_press,
-    on_release=on_release)
+    on_press=None,
+    on_release=process_key)
 listener.start()
+
+
 
 
 
